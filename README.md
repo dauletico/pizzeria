@@ -1,6 +1,13 @@
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This bootstrapped app will be used to develop a pizzeria webapp.
+
+## Install dependencies
+
+### `yarn`
+
+This command will install all required dependencies
 
 ## Available Scripts
 
