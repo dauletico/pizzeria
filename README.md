@@ -5,7 +5,7 @@ This bootstrapped app will be used to develop a pizzeria webapp.
 
 ## Install dependencies
 
-### `yarn`
+### `yarn install`
 
 This command will install all required dependencies
 

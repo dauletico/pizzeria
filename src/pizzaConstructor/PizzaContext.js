@@ -4,13 +4,14 @@ const PizzaContext = createContext();
 
 const initialOrder = {
 	ingredients: {
-		size: [{ id: 0, size: 30, label: "30 cm", price: 0 }],
+		size: [{ id: 0, size: 30, label: "30 cm", price: 200 }],
 		pastry: [{ id: 0, pastry: "thin", label: "Тонкое", price: 0 }],
 		sauce: [{ id: 0, sauce: "tomato", label: "Томатный", price: 0 }],
 		cheese: [],
 		vegetables: [],
 		meat: [],
 	},
+	showOrderDetailsPage: false,
 	orderSum: 200,
 };
 
@@ -20,6 +21,7 @@ const CHANGE_SAUCE = "CHANGE_SAUCE";
 const CHANGE_CHEESE = "CHANGE_CHEESE";
 const CHANGE_VEGETABLES = "CHANGE_VEGETABLES";
 const CHANGE_MEAT = "CHANGE_MEAT";
+const SHOW_ORDER_DETAILS = "SHOW_ORDER_DETAILS";
 
 function pizzaReducer(state, action) {
 	switch (action.type) {
@@ -57,6 +59,11 @@ function pizzaReducer(state, action) {
 			const newState = { ...state };
 			newState.ingredients.meat = action.meat;
 			newState.orderSum = getTotalSum(newState.ingredients);
+			return newState;
+		}
+		case SHOW_ORDER_DETAILS: {
+			const newState = { ...state };
+			newState.showOrderDetailsPage = !state.showOrderDetailsPage;
 			return newState;
 		}
 		default:

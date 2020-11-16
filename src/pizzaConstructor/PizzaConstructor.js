@@ -6,12 +6,19 @@ import { PizzaCheese } from "./PizzaCheese";
 import { PizzaVegetables } from "./PizzaVegetables";
 import { PizzaMeat } from "./PizzaMeat";
 import { OrderButton } from "./OrderButton";
+import { PizzaOrderDetails } from "./PizzaOrderDetails";
 
-import { PizzaProvider } from "./PizzaContext";
+import { usePizzaContext } from "./PizzaContext";
 
 export const PizzaConstructor = () => {
+	const { currentPizza } = usePizzaContext();
+
+	if (currentPizza.showOrderDetailsPage) {
+		return <PizzaOrderDetails />;
+	}
+
 	return (
-		<PizzaProvider>
+		<>
 			<div>
 				<PizzaSize />
 				<PizzaPastry />
@@ -23,6 +30,6 @@ export const PizzaConstructor = () => {
 			<div>
 				<OrderButton />
 			</div>
-		</PizzaProvider>
+		</>
 	);
 };
