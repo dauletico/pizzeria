@@ -1,9 +1,14 @@
 import React from "react";
+import { Redirect } from "react-router-dom";
 
 import { usePizzaContext } from "./PizzaContext";
 
-export const PizzaOrderDetails = () => {
+export const PizzaPreview = () => {
 	const { currentPizza } = usePizzaContext();
+
+	if (!currentPizza.showPreview) {
+		return <Redirect to="/" />;
+	}
 
 	return (
 		<div>

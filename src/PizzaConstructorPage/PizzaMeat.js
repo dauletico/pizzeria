@@ -1,6 +1,7 @@
 import React from "react";
+import { InputRef } from "./_InputRef";
 
-import { usePizzaContext } from "./PizzaContext";
+import { usePizzaContext } from "../shared/PizzaContext";
 
 const availableMeat = [
 	{ id: 0, meat: "bacon", label: "Бекон", price: 29 },
@@ -8,19 +9,10 @@ const availableMeat = [
 	{ id: 2, meat: "ham", label: "Ветчина", price: 29 },
 ];
 
-const Checkbox = React.forwardRef(({ label, onChange, ...props }, ref) => {
-	return (
-		<label>
-			<input ref={ref} type="checkbox" onChange={onChange} {...props} />
-			{label}
-		</label>
-	);
-});
-
 export const PizzaMeat = () => {
 	const checkboxesRef = React.useRef([]);
 
-	const { dispatch } = usePizzaContext();
+	const { currentPizza, dispatch } = usePizzaContext();
 
 	const handleMeatChange = () => {
 		const meat = availableMeat.filter(
@@ -35,12 +27,16 @@ export const PizzaMeat = () => {
 				<div>Добавьте мясо</div>
 				<div>
 					{availableMeat.map((meatObj) => (
-						<Checkbox
+						<InputRef
 							key={meatObj.id}
 							ref={(el) => (checkboxesRef.current[meatObj.id] = el)}
+							type="checkbox"
 							label={meatObj.label}
 							value={meatObj.meat}
 							onChange={handleMeatChange}
+							defaultChecked={currentPizza.ingredients.meat.some(
+								(currMeatObj) => currMeatObj.meat === meatObj.meat
+							)}
 						/>
 					))}
 				</div>

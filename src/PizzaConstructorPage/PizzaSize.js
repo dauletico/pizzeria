@@ -1,26 +1,12 @@
 import React from "react";
+import { InputRef } from "./_InputRef";
 
-import { usePizzaContext } from "./PizzaContext";
+import { usePizzaContext } from "../shared/PizzaContext";
 
 const availableSizes = [
 	{ id: 0, size: 30, label: "30 cm", price: 200 },
 	{ id: 1, size: 35, label: "35 cm", price: 250 },
 ];
-
-const Radio = React.forwardRef(({ label, name, onChange, ...props }, ref) => {
-	return (
-		<label>
-			<input
-				ref={ref}
-				type="radio"
-				name={name}
-				onChange={onChange}
-				{...props}
-			/>
-			{label}
-		</label>
-	);
-});
 
 export const PizzaSize = () => {
 	const radiosRef = React.useRef([]);
@@ -40,7 +26,7 @@ export const PizzaSize = () => {
 				<div>Размер</div>
 				<div>
 					{availableSizes.map((sizeObj) => (
-						<Radio
+						<InputRef
 							key={sizeObj.id}
 							ref={(el) => (radiosRef.current[sizeObj.id] = el)}
 							label={sizeObj.label}
