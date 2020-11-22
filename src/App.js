@@ -1,12 +1,16 @@
-function App() {
+import React from "react";
+import { PizzaConstructor } from "./pizzaConstructor/PizzaConstructor";
+
+import { PizzaProvider } from "./pizzaConstructor/PizzaContext";
+
+const App = () => {
 	return (
-		<div className="App">
-			<header className="App-header">
-				<h1>Basic CRA</h1>
-				<p>This is the basic CRA for a pizzeria project</p>
-			</header>
+		<div>
+			<PizzaProvider>
+				<PizzaConstructor />
+			</PizzaProvider>
 		</div>
 	);
-}
+};
 
 export default App;
