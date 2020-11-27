@@ -1,12 +1,13 @@
 import { createContext, useContext, useReducer } from "react";
+import { pizzaData } from "./pizzaData.js";
 
 const PizzaContext = createContext();
 
 const initialOrder = {
 	ingredients: {
-		size: [{ id: 0, size: 30, label: "30 cm", price: 200 }],
-		pastry: [{ id: 0, pastry: "thin", label: "Тонкое", price: 0 }],
-		sauce: [{ id: 0, sauce: "tomato", label: "Томатный", price: 0 }],
+		size: ["30"],
+		pastry: ["thin"],
+		sauce: ["tomato"],
 		cheese: [],
 		vegetables: [],
 		meat: [],
@@ -65,9 +66,22 @@ function pizzaReducer(state, action) {
 
 function getTotalSum(ingredients) {
 	let totalSum = 0;
+	const pizzaDataObjects = {};
 	for (const ingredient in ingredients) {
-		ingredients[ingredient].forEach((item) => (totalSum += item.price));
+		ingredients[ingredient].forEach((stateItem) => {
+			pizzaData[ingredient].forEach((dataItem) => {
+				if (stateItem === dataItem[ingredient]) {
+					pizzaDataObjects[ingredient] = dataItem;
+				}
+			});
+		});
 	}
+	console.log(pizzaDataObjects);
+	/* for (const ingredientObj in pizzaDataObjects) {
+		pizzaDataObjects[ingredientObj].forEach(
+			(item) => (totalSum += item.price)
+		);
+	} */
 	return totalSum;
 }
 

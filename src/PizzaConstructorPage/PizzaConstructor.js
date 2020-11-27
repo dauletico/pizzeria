@@ -6,21 +6,20 @@ import { PizzaCheese } from "./PizzaCheese";
 import { PizzaVegetables } from "./PizzaVegetables";
 import { PizzaMeat } from "./PizzaMeat";
 import { OrderButton } from "./OrderButton";
+import { PizzaForm } from "./PizzaForm";
 
 export const PizzaConstructor = () => {
+	const onSubmit = () => {};
 	return (
 		<>
-			<div>
+			<PizzaForm onSubmit={onSubmit}>
 				<PizzaSize />
 				<PizzaPastry />
-			</div>
-			<PizzaSauce />
-			<PizzaCheese />
-			<PizzaVegetables />
-			<PizzaMeat />
-			<div>
-				<OrderButton />
-			</div>
+				<PizzaSauce />
+				<PizzaCheese />
+				<PizzaVegetables />
+				<PizzaMeat />
+			</PizzaForm>
 		</>
 	);
 };

@@ -1,24 +1,20 @@
-import React from "react";
-import { InputRef } from "./_InputRef";
+import React, { useEffect } from "react";
 
 import { usePizzaContext } from "../shared/PizzaContext";
+import { pizzaData } from "../shared/pizzaData";
 
-const availableSizes = [
-	{ id: 0, size: 30, label: "30 cm", price: 200 },
-	{ id: 1, size: 35, label: "35 cm", price: 250 },
-];
+const availableSizes = pizzaData.size;
 
-export const PizzaSize = () => {
-	const radiosRef = React.useRef([]);
-
+export const PizzaSize = ({ register, watch, ...rest }) => {
 	const { currentPizza, dispatch } = usePizzaContext();
 
-	const handleSizeChange = () => {
-		const size = availableSizes.find(
-			(size) => radiosRef.current[size.id].checked
-		);
-		dispatch({ type: "CHANGE_SIZE", size });
-	};
+	const size = watch("size", "30");
+
+	useEffect(() => {
+		if (size) {
+			dispatch({ type: "CHANGE_SIZE", size });
+		}
+	}, [size]);
 
 	return (
 		<>
@@ -26,18 +22,17 @@ export const PizzaSize = () => {
 				<div>Размер</div>
 				<div>
 					{availableSizes.map((sizeObj) => (
-						<InputRef
-							key={sizeObj.id}
-							ref={(el) => (radiosRef.current[sizeObj.id] = el)}
-							label={sizeObj.label}
-							type="radio"
-							name="size"
-							value={sizeObj.size}
-							onChange={handleSizeChange}
-							defaultChecked={
-								currentPizza.ingredients.size[0].size === sizeObj.size
-							}
-						/>
+						<label key={sizeObj.id}>
+							<input
+								key={sizeObj.id}
+								ref={register}
+								label={sizeObj.label}
+								type="radio"
+								name="size"
+								value={sizeObj.size}
+							/>
+							{sizeObj.label}
+						</label>
 					))}
 				</div>
 			</div>
